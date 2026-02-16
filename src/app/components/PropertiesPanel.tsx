@@ -3,6 +3,7 @@ import type { FloorPlanElement } from '../types/floorplan';
 import { Card } from './ui/card';
 import { Label } from './ui/label';
 import { Input } from './ui/input';
+import { COLORS } from '../utils/constants';
 
 interface PropertiesPanelProps {
   selectedElement: FloorPlanElement | null;
@@ -16,6 +17,7 @@ export function PropertiesPanel({ selectedElement, onUpdateElement }: Properties
         <div className="text-slate-400 text-sm text-center">
           <p>No element selected</p>
           <p className="text-xs mt-2">Select an element to view properties</p>
+          <p className="text-xs mt-4 text-blue-400">💡 Tip: Use Shift+Click or drag to select multiple elements</p>
         </div>
       </Card>
     );
@@ -91,21 +93,80 @@ export function PropertiesPanel({ selectedElement, onUpdateElement }: Properties
                 className="bg-slate-800 border-slate-700 text-white"
               />
             </div>
+
+            <div>
+              <Label className="text-slate-300 text-xs mb-1">Color</Label>
+              <Input
+                type="color"
+                value={selectedElement.color || COLORS.room}
+                onChange={(e) => onUpdateElement({ ...selectedElement, color: e.target.value })}
+                className="bg-slate-800 border-slate-700 h-10"
+              />
+            </div>
           </>
         )}
 
         {selectedElement.type === 'wall' && (
-          <div>
-            <Label className="text-slate-300 text-xs mb-1">Thickness</Label>
-            <Input
-              type="number"
-              value={Math.round(selectedElement.thickness)}
-              onChange={(e) => handleChange('thickness', Number(e.target.value))}
-              className="bg-slate-800 border-slate-700 text-white"
-              min={1}
-              max={20}
-            />
-          </div>
+          <>
+            <div>
+              <Label className="text-slate-300 text-xs mb-1">Thickness</Label>
+              <Input
+                type="number"
+                value={Math.round(selectedElement.thickness)}
+                onChange={(e) => handleChange('thickness', Number(e.target.value))}
+                className="bg-slate-800 border-slate-700 text-white"
+                min={1}
+                max={20}
+              />
+            </div>
+
+            <div>
+              <Label className="text-slate-300 text-xs mb-1">Color</Label>
+              <Input
+                type="color"
+                value={selectedElement.color || COLORS.wall}
+                onChange={(e) => onUpdateElement({ ...selectedElement, color: e.target.value })}
+                className="bg-slate-800 border-slate-700 h-10"
+              />
+            </div>
+          </>
+        )}
+
+        {selectedElement.type === 'text' && (
+          <>
+            <div>
+              <Label className="text-slate-300 text-xs mb-1">Text Content</Label>
+              <Input
+                type="text"
+                value={selectedElement.text}
+                onChange={(e) => onUpdateElement({ ...selectedElement, text: e.target.value })}
+                placeholder="Enter text..."
+                className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-500"
+              />
+            </div>
+
+            <div>
+              <Label className="text-slate-300 text-xs mb-1">Font Size</Label>
+              <Input
+                type="number"
+                value={selectedElement.fontSize || 16}
+                onChange={(e) => handleChange('fontSize', Number(e.target.value))}
+                className="bg-slate-800 border-slate-700 text-white"
+                min={8}
+                max={72}
+              />
+            </div>
+
+            <div>
+              <Label className="text-slate-300 text-xs mb-1">Color</Label>
+              <Input
+                type="color"
+                value={selectedElement.color || '#ffffff'}
+                onChange={(e) => onUpdateElement({ ...selectedElement, color: e.target.value })}
+                className="bg-slate-800 border-slate-700 h-10"
+              />
+            </div>
+          </>
         )}
 
         {selectedElement.type === 'pencil' && (

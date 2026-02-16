@@ -10,6 +10,11 @@ export const DEFAULT_WALL_THICKNESS = 2;
 export const DEFAULT_PENCIL_LINE_WIDTH = 2;
 export const DEFAULT_PENCIL_COLOR = '#60a5fa';
 
+// Zoom constants
+export const MIN_ZOOM = 0.25;
+export const MAX_ZOOM = 3;
+export const ZOOM_STEP = 0.1;
+
 // Canvas colors
 export const COLORS = {
     background: '#0a1929',
@@ -24,4 +29,9 @@ export const COLORS = {
     selected: '#60a5fa',
     label: '#93c5fd',
     roomName: '#fde047', // Bright yellow for room names
+    marqueeStroke: '#60a5fa',
+    marqueeFill: 'rgba(96, 165, 250, 0.15)',
 } as const;
+
+// Marquee selection constants
+export const MARQUEE_LINE_WIDTH = 2;
